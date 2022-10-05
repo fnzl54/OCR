@@ -32,7 +32,7 @@ class Batch_Balanced_Dataset(object):
 
         _AlignCollate = AlignCollate(imgH=opt.imgH, imgW=opt.imgW, keep_ratio_with_pad=opt.PAD)
         self.data_loader_list = []
-        self.dataloader_iter_list = []
+        self.dataloader_iter_list = [] ############################################################## 의심(아무것도 없음)
         batch_size_list = []
         Total_batch_size = 0
         for selected_d, batch_ratio_d in zip(opt.select_data, opt.batch_ratio):
@@ -84,12 +84,12 @@ class Batch_Balanced_Dataset(object):
 
         for i, data_loader_iter in enumerate(self.dataloader_iter_list):
             try:
-                image, text = data_loader_iter.next()
+                image, text =  next(data_loader_iter)##################.next()
                 balanced_batch_images.append(image)
                 balanced_batch_texts += text
             except StopIteration:
                 self.dataloader_iter_list[i] = iter(self.data_loader_list[i])
-                image, text = self.dataloader_iter_list[i].next()
+                image, text = next(self.dataloader_iter_list[i])################.next()
                 balanced_batch_images.append(image)
                 balanced_batch_texts += text
             except ValueError:

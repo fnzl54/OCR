@@ -44,7 +44,8 @@ def createDataset(inputPath, gtFile, outputPath, checkValid=True):
 
     nSamples = len(datalist)
     for i in range(nSamples):
-        imagePath, label = datalist[i].strip('\n').split('\t')
+        imagePath, label  = datalist[i].strip('\n').split(',')
+        #imagePath = imagePath[2:]
         imagePath = os.path.join(inputPath, imagePath)
 
         # # only use alphanumeric data
@@ -85,3 +86,6 @@ def createDataset(inputPath, gtFile, outputPath, checkValid=True):
 
 if __name__ == '__main__':
     fire.Fire(createDataset)
+
+
+# /workspace/data/train/train_12007.pngs
